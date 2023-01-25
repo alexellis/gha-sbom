@@ -36,8 +36,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
 
-      - name: Local build
-        id: local_build
+      - name: Publish image
         uses: docker/build-push-action@v3
         with:
           build-args: |
@@ -45,7 +44,6 @@ jobs:
           outputs: "type=registry,push=true"
           sbom: true
           provenance: false
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
           tags: |
             ghcr.io/${{ env.REPO_OWNER }}/gha-sbom:${{ github.sha }}
             ghcr.io/${{ env.REPO_OWNER }}/gha-sbom:latest
